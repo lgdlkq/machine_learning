@@ -7,7 +7,6 @@ from sklearn.feature_extraction import DictVectorizer
 import csv
 from sklearn import tree
 from sklearn import preprocessing
-from sklearn.externals.six import StringIO
 
 allElctronicsData=open(r'AllElectronics.csv','r')
 reader=csv.reader(allElctronicsData)
