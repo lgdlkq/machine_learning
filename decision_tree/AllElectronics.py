@@ -56,7 +56,7 @@ newRowX[2] = 0
 print('newRowX:'+str(newRowX))
 
 predictedY=clf.predict([newRowX])   #此处的newRowX因为为1维数组，需转换为二维数组
-print('predictedY:'+str(predictedY))
+print('predictedY:'+str(predictedY))#输出预测结果
 
 
 
