@@ -33,3 +33,36 @@
     <4>.编写获取分类结果函数，将每个测试点前面获取到的最近的K个实例进行预测判断，根据该K个实例所属类别的个数进行结果预测。
     <5>.编写准确度计算函数，传入参数为测试数据集，预测结果集.
     <6>.主函数调用执行部分。
+
+## 三、支持向量机SVM
+### 1.使用类库包：
+    numpy、pylab、sklearn.svm、time、logging、matplotlib.pyplot、sklearn.cross_validation.train_test_split、sklearn.datasets.fetch_lfw_people、sklearn.grid_search.GridSearchCV、sklearn.metrics.classification_report、sklearn.metrics.confusion_matrix、
+    sklearn.decomposition.RandomizedPCA
+### 2.三个程序：
+    <1>.SKLearn_SVM.py,简单的SVM测试
+    <2>.SKLearnSVMExample.py,使用随机数创建四十组数据，前20个做训练集，后20个做测试集
+    <3>.SVMFaceRecongnitionExample.py,使用训练集做人脸检测的训练分类
+    说明：前两个程序为线性可分的SVM，后者为线性不可分SVM
+### 3.程序过程：
+    (1).线性可分SVM，第二个程序：
+        <1>.使用numpy库的random.randn函数生成四十组数据
+        <2>.建立SVM模型，设置核函数为'linear'并进行fit训练，尝试对某个数据预测并输出预测结果
+        <3>.输出该SVM的相关信息
+        <4>.取出SVM相关的W、h值对公式w_0x + w_1y +w_3=0，
+        变形为：y = -(w_0/w_1) x + (w_3/w_1)构建该函数（超平面的分割线）与其两条边界线函数
+        <5>.使用numpy的linspace函数构建一组X值，通过上述构建的函数运用绘图函数将结果绘制在图上
+    (2).线性不可分SVM，第三个程序：
+        <1>.载入数据集，fetch_lfw_people默认将自动去user目录下查找相应的数据集(如果使用data_home指定了数据集的位置将去相应位置查找)，如果未找到将自动联网下载（若指定参数download_if_missing=False则不会下载，下载文件较大比较耗时，数据集大小为220MB左右）
+        <2>.载入数据后，取出数据集的实例个数、h、w、特征向量矩阵及其维度、每一个实例的类别标记、所有的类别种类、需检测区分的实例个数等数据
+        <3>.数据集分割
+        <4>.设置PCA降维参数，使用随机的PCA降维方法建立PCA降维模型
+        <5>.分别对训练集和测试集进行PCA降维
+        <6>.定义多种核函数参数的组合，包括错误惩罚C和gamma
+        <7>.使用GridSearchCV函数构建SVM模型，参数指定：核函数为rbf，以及传入前面定义的核函数组合，GridSearchCV函数会自动寻找组合中的最佳组合参数
+        <8>.训练SVM模型并使用该训练好的SVM模型对测试集的实例进行预测分类
+        <9>.使用classification_report输出预测结果的准确率，输出的结果显示属性：precision是预测的准确率，recall是召回率f1-score是一个兼顾考虑了Precision和Recall的评估指标。他们的数值越接近1说明预测的越准
+        <10>.使用confusion_matrix输出混淆矩阵验证，若正确率100%，数据将都排列在对角线上，不在对角线上的数据越多准确率越差
+        <11>.定义绘图板函数，预测结果对应的分类名称提取函数
+        <12>.调用上述定义的函数把预测的分类名称取出，将预测结果和实际结果与相应的图像绘制在第一个绘图板
+        <13>.提取特征并将提取特征后的结果绘制在第二个绘图板
+        <14>.将绘图结果显示出来
