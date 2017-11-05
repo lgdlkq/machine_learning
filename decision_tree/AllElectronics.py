@@ -14,11 +14,11 @@ headers = next(reader)  #获取CSV文件的第一列
 print(headers)
 
 featureList=[]  #特征指的集合
-labelLiat=[]    #类别值的集合
+labelList=[]    #类别值的集合
 
 #取出相应的值
 for row in reader:
-    labelLiat.append(row[len(row)-1])#取出类别值（最后一列）
+    labelList.append(row[len(row)-1])#取出类别值（最后一列）
     rowDict={} #字典
     for i in range(1,len(row)-1):
         rowDict[headers[i]]=row[i]  #headers[i]作为键值key，依次添加每一行数据
@@ -30,11 +30,11 @@ vec= DictVectorizer()#初始化一个特征向量的转换函数
 dummyX=vec.fit_transform(featureList).toarray()  #转化
 print('dummX:'+str(dummyX))#输出转换后的特征向量
 print(vec.get_feature_names())  #输出每个属性的取值
-print('labelList:'+str(labelLiat))
+print('labelList:'+str(labelList))
 
 #将label分类结果转换为0,1格式
 lb=preprocessing.LabelBinarizer()
-dummyY=lb.fit_transform(labelLiat)
+dummyY=lb.fit_transform(labelList)
 print('dummyY:'+str(dummyY))
 
 #使用决策树分类器分类
