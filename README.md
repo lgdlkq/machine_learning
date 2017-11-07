@@ -38,6 +38,7 @@
 ### 1.使用类库包：
     numpy、pylab、sklearn.svm、time、logging、matplotlib.pyplot、sklearn.cross_validation.train_test_split、sklearn.datasets.fetch_lfw_people、sklearn.grid_search.GridSearchCV、sklearn.metrics.classification_report、sklearn.metrics.confusion_matrix、
     sklearn.decomposition.RandomizedPCA
+    说明：sklearn.cross_validation.train_test_split、sklearn.grid_search.GridSearchCV在Python3.5中已迁移至sklearn.model_selection.train_test_split、sklearn.model_selection.GridSearchCV
 ### 2.三个程序：
     <1>.SKLearn_SVM.py,简单的SVM测试
     <2>.SKLearnSVMExample.py,使用随机数创建四十组数据，前20个做训练集，后20个做测试集
@@ -66,3 +67,26 @@
         <12>.调用上述定义的函数把预测的分类名称取出，将预测结果和实际结果与相应的图像绘制在第一个绘图板
         <13>.提取特征并将提取特征后的结果绘制在第二个绘图板
         <14>.将绘图结果显示出来
+
+## 四、NeuralNetwork
+### 1.使用类库包：
+    numpy、sklearn.datasets.load_digits、sklearn.metrics.confusion_matrix,classification_report、sklearn.preprocessing.abelBinarizer、nerual_networks.NerualNetworkClass.NeuralNetwork、sklearn.model_selection.train_test_split
+### 2.四个.py文件：
+    <1>.NerualNetworkClass.py定义NeuralNetwork类，其余.py文件进行训练和预测时使用；该类是对NeuralNetwork算法的实现，采用了交叉验证的方法加快训练（多次随机抽取数据集的一行训练，而非对每行都依次训练），同时，在终止训练的条件选择上，为了简便只选取了限定交叉验证的训练次数，未添加通过误差等判断的条件
+    <2>.NNSimpleTest.py是简单的NN算法的测试，调用了NerualNetworkClass.py中定义的NerualNetwork的类
+    <3>.HandwrittenDigitsRecognition.py是手写数字识别的简单例子，同样调用了NerualNetworkClass.py中定义的NerualNetwork的类
+    <4>.VisualizeDigits.py查看sklearn自带手写数字识别库的数据
+### 3.代码实现：
+    <1>.重点：NerualNetworkClass.py中NerualNetwork类的实现：
+        （1）.首先，定义两种（偏向）S函数：双曲函数tanh(x)、logistic(逻辑)函数logistic(x)以及两种函数的导数函数tanh_deriv(x)、logistic_derivative(x)
+        （2）.NeuralNetwork(object)的定义：1.定义构造函数，传入参数为神经网络的层数及每层的节点个数（使用List传入，其长度即为层数）、采用的偏向函数，通过判断采用的函数类型为类的属性进行方法的选择，同时使用随机数的方式为神经网络进行权重的初始化
+        （3）.对NeuralNetwork类定义fit训练函数，参数为：数据集，label集，学习率，需要进行训练更新的次数epochs。先将数据集X转换为array型以便计算，同时初始化一个全为1的矩阵，大小为X的行*（X的列+1），多的一列用于初始化偏向bias为1，然后将前面的部分设为X的值并将整个矩阵赋给X，再将label集y转换为array
+        （4）.fit中编写更新操作：随机取出一行数据，对改行数据进行相应的加权求内积并存储（开始只有输入层的实例，最后求出输出层），求出输出层的真实值与预测值误差，再利用其求出输出层的偏向误差；从最后一层回退到第零层，每次回退一层，循环求出各个偏向值并存取；因为是回退计算，需要将保存偏向元素进行前后颠倒，然后进行循环更新权重。将此步骤进行循环，循环次数为传入的epochs。
+        （5）.对NeuralNetwork类定义predict预测函数,数据处理同步骤三（不需要对label处理），求其预测值并返回。
+    <2>.HandwrittenDigitsRecognition.py的实现：
+        （1）.加载手写数字识别的数据集，取出特征值和label值，再将所有值转换到0-1间
+        （2）.初始化NeuralNetwork
+        （3）.对步骤一载入的数据进行分割
+        （4）.将label转换成矩阵的形式，第几个数字就在第几位上设为1，其余设为0（使用LabelBinarizer().fit_transform方法）
+        （5）.开始训练
+        （6）.对分割出的测试集进行预测并将预测结果存取，输出预测结果
