@@ -90,3 +90,13 @@
         （4）.将label转换成矩阵的形式，第几个数字就在第几位上设为1，其余设为0（使用LabelBinarizer().fit_transform方法）
         （5）.开始训练
         （6）.对分割出的测试集进行预测并将预测结果存取，输出预测结果
+
+## 五、regression
+### 1.使用的类库：
+    numpy、sklearn.linear_model、numpy.genfromtxt
+### 2.三个.py文件两个.csv文件
+    <1>.SimpleLinearRegression.py:线性回归实例，使用最小二乘法定义回归函数
+    <2>.multipleRegression.py、multipleRegressionNew.py：前者使用Delivery.csv文件的数据，后者使用Delivery_Dummy.csv的数据，两者的过程并无区别，主要区别在于后者是前者的数据衍化，前者为值预测，后者演化为分类问题
+### 3.代码实现：
+    <1>.SimpleLinearRegression.py:使用最小二乘法，故定义最小二乘法的函数，定义预测函数，使用数据训练，对测试数据使用训练的结果进行预测
+    <2>.multipleRegression.py、multipleRegressionNew.py：读入.csv的文件数据，使用sklearn.linear_model库进行数据训练，对预测数据进行预测
