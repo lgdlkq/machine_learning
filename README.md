@@ -94,9 +94,11 @@
 ## 五、regression
 ### 1.使用的类库：
     numpy、sklearn.linear_model、numpy.genfromtxt
-### 2.三个.py文件两个.csv文件
+### 2.四个.py文件两个.csv文件
     <1>.SimpleLinearRegression.py:线性回归实例，使用最小二乘法定义回归函数
     <2>.multipleRegression.py、multipleRegressionNew.py：前者使用Delivery.csv文件的数据，后者使用Delivery_Dummy.csv的数据，两者的过程并无区别，主要区别在于后者是前者的数据衍化，前者为值预测，后者演化为分类问题
+    <3>.PearsonCorrelation.py计算皮尔顿相关系数（相关度r、R平方值(决定系数)）
 ### 3.代码实现：
     <1>.SimpleLinearRegression.py:使用最小二乘法，故定义最小二乘法的函数，定义预测函数，使用数据训练，对测试数据使用训练的结果进行预测
     <2>.multipleRegression.py、multipleRegressionNew.py：读入.csv的文件数据，使用sklearn.linear_model库进行数据训练，对预测数据进行预测
+    <3>.PearsonCorrelation.py：相关度r=((x-x均)(y-y均))的求和/(x的方差的求和*y的方差求和)的开平方、简单线性回归：R^2=r*r、多元线性回归：R^2=(y拟-y均)^2d的求和/(y-y均)^2的求和
